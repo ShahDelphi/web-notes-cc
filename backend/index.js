@@ -1,28 +1,39 @@
+// index.js
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import db from "./config/Database.js";
+import cookieParser from "cookie-parser";
+import { db } from "./models/index.js"; // ambil dari model
 import NotesRoute from "./routes/NotesRoute.js";
 
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000 ;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: true,
+  credentials: true,
+}));
+
+app.use(cookieParser());
 app.use(express.json());
 app.use(NotesRoute);
 
-// Database Connection
+// Database Connection & Sync
 (async () => {
   try {
     await db.authenticate();
     console.log("Database connected...");
-    await db.sync(); // Membuat tabel jika belum ada
+
+    // Gunakan sync({ alter: true }) hanya di dev
+    await db.sync(); 
+    console.log("Database synchronized...");
   } catch (error) {
     console.error("Connection error:", error);
   }
 })();
 
+// Jalankan server
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
