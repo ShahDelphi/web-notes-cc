@@ -24,8 +24,8 @@ export const getNoteById = async (req, res) => {
 // Create Note
 export const createNote = async (req, res) => {
   try {
-    const id = req.id; // pastikan verifyToken sudah dipasang
-    await Note.create({ ...req.body, id });
+    const userId = req.user.id; // pastikan verifyToken sudah dipasang
+    await Note.create({ ...req.body, userId });
     res.json({ message: "Note Created" });
   } catch (error) {
     res.status(500).json({ message: error.message });

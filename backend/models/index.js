@@ -4,7 +4,7 @@ import Users from "./UsersModel.js";
 import Notes from "./NotesModel.js";
 
 // Relasi antar tabel
-Users.hasMany(Notes, { foreignKey: "id", onDelete: "CASCADE" });
-Notes.belongsTo(Users, { foreignKey: "id" });
+Users.hasMany(Notes, { foreignKey: "userId", onDelete: "CASCADE" });
+Notes.belongsTo(Users, { foreignKey: "userId" });
 
 export { db, Users, Notes };
