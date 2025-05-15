@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 // === CORS Configuration ===
 const corsOptions = {
   origin: [
-    //"https://notes-frontend-wijdan-dot-projek-tcc-1.uc.r.appspot.com", // frontend deploy
+    "https://notes-fe027-dot-if-b-08.uc.r.appspot.com/", // frontend deploy
     "http://localhost:3000", // pengembangan lokal
   ],
   credentials: true, // untuk cookie/token
