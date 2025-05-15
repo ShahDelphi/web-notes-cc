@@ -27,8 +27,8 @@ app.use(NotesRoute);
     await db.authenticate();
     console.log("Database connected...");
 
-    // Gunakan sync({ alter: true }) hanya di dev
-    await db.sync(); 
+    // Sync database schema with models (development only)
+    await db.sync({ alter: true }); // <- Perubahan di sini
     console.log("Database synchronized...");
   } catch (error) {
     console.error("Connection error:", error);
