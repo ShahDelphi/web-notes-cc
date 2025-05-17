@@ -12,8 +12,8 @@ const Login = () => {
   const handleLogin = async () => {
     if (!username.trim() || !password.trim()) return setError("Semua field wajib diisi");
     try {
-      const res = await axiosInstance.post("/auth/login", { username, password });
-      localStorage.setItem("token", res.data.token);
+      const res = await axiosInstance.post("/login", { username, password });
+      localStorage.setItem("token", res.data.accessToken);
       navigate("/");
     } catch (err) {
       setError(err.response?.data?.message || "Gagal login");
