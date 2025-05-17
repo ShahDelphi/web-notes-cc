@@ -3,27 +3,27 @@ import { useNavigate, Link } from "react-router-dom";
 import axiosInstance from "../axiosInstance";
 import { Button, Input } from "../components/ui";
 
-const Login = () => {
+const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = async () => {
+  const handleRegister = async () => {
     if (!username.trim() || !password.trim()) return setError("Semua field wajib diisi");
     try {
-      const res = await axiosInstance.post("/auth/login", { username, password });
-      localStorage.setItem("token", res.data.token);
-      navigate("/");
+      await axiosInstance.post("/auth/register", { username, password });
+      alert("Registrasi berhasil, silakan login!");
+      navigate("/login");
     } catch (err) {
-      setError(err.response?.data?.message || "Gagal login");
+      setError(err.response?.data?.message || "Gagal registrasi");
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-900 text-white p-6">
       <div className="bg-gray-800 p-6 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-2xl font-bold text-blue-400 mb-6">🔐 Login</h1>
+        <h1 className="text-2xl font-bold text-green-400 mb-6">🆕 Register</h1>
 
         {error && <p className="text-red-500 mb-4">{error}</p>}
 
@@ -45,16 +45,16 @@ const Login = () => {
         />
 
         <Button
-          onClick={handleLogin}
-          className="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg shadow w-full"
+          onClick={handleRegister}
+          className="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg shadow w-full"
         >
-          Login
+          Register
         </Button>
 
         <p className="mt-4 text-gray-400 text-sm text-center">
-          Belum punya akun?{" "}
-          <Link to="/register" className="text-green-400 hover:underline">
-            Register di sini
+          Sudah punya akun?{" "}
+          <Link to="/login" className="text-blue-400 hover:underline">
+            Login di sini
           </Link>
         </p>
       </div>
@@ -62,4 +62,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
